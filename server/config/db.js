@@ -1,4 +1,5 @@
 const dns = require('dns');
+const mongoose = require('mongoose');
 
 // Ensure reliable DNS resolution for MongoDB Atlas SRV records on Windows
 try {
