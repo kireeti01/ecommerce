@@ -30,6 +30,9 @@ connectDB();
 
 const app = express();
 
+// Trust reverse proxy (Render load balancer) for secure cookies & HTTPS detection
+app.set('trust proxy', 1);
+
 // Security Headers
 app.use(
   helmet({
@@ -40,6 +43,7 @@ app.use(
 // CORS Configuration
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  'https://ecommerce-sigma-jet-11.vercel.app',
   'http://localhost:5173',
   'http://127.0.0.1:5173'
 ].filter(Boolean);
@@ -47,8 +51,12 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, server-to-server)
-      if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (curl, server-to-server) or listed origins or any Vercel preview/production domain
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app')
+      ) {
         callback(null, true);
       } else {
         callback(new Error(`CORS blocked for origin: ${origin}`));

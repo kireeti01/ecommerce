@@ -30,8 +30,8 @@ const generateTokens = (user, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: isProduction, // HTTPS only in production
-      sameSite: isProduction ? 'strict' : 'lax', // 'lax' for local cross-origin dev
+      secure: isProduction, // HTTPS required when sameSite is none
+      sameSite: isProduction ? 'none' : 'lax', // 'none' allows cookies across Vercel & Render
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
   }
@@ -48,7 +48,7 @@ const clearTokenCookie = (res) => {
   res.cookie('refreshToken', '', {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? 'strict' : 'lax',
+    sameSite: isProduction ? 'none' : 'lax',
     expires: new Date(0)
   });
 };
