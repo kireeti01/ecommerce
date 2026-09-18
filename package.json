@@ -1,0 +1,30 @@
+{
+  "name": "fsddeployproj-mern-ecommerce",
+  "version": "1.0.0",
+  "description": "Production-quality full-stack MERN e-commerce web application with MongoDB Atlas, Express, React, and Node",
+  "main": "server/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "build:client": "npm run build --prefix client",
+    "seed": "npm run seed --prefix server",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "mern",
+    "ecommerce",
+    "mongodb-atlas",
+    "express",
+    "react",
+    "node",
+    "redux-toolkit",
+    "tailwind"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
