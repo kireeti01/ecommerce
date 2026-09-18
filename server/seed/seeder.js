@@ -1,4 +1,11 @@
 require('dotenv').config();
+const dns = require('dns');
+
+// Ensure reliable DNS resolution for MongoDB Atlas SRV records on Windows
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {}
+
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const Category = require('../models/Category');
